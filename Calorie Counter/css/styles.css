@@ -32,3 +32,52 @@ h1, .container, .output{
 label, legend{
     font-weight: bold;
 }
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+button {
+  cursor: pointer;
+  text-decoration: none;
+  background-color: var(--light-yellow);
+  border: 4px solid var(--dark-yellow);
+}
+
+button,
+input,
+select {
+  min-height: 24px;
+  color: var(--dark-blue);
+}
+
+fieldset,
+label,
+button,
+input,
+select {
+  margin-bottom: 10px;
+}
+
+.output{
+  border: 10px solid var(--light-grey);
+  padding: 10px;
+  text-align: center;
+}
+
+.hide{
+  display: none;
+}
+
+.output span{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.surplus{
+  color: var(--light-pink);
+}
+
+.deficit{
+  color: var(--light-green);
+}

@@ -27,10 +27,9 @@ function addEntry() {
   targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
 }
 
-addEntryButton.addEventListener('click', addEntry);
-
 function getCaloriesFromInputs(list) {
   let calories = 0;
+
   for (const item of list) {
     const currVal = cleanInputString(item.value);
     const invalidInputMatch = isInvalidInput(currVal);
@@ -66,4 +65,36 @@ function calculateCalories(e) {
   if(isError){
     return null;
   }
+
+  const consumedCalories =  breakfastCalories + lunchCalories + dinnerCalories + snacksCalories;
+  const remainingCalories  =  budgetCalories - consumedCalories + exerciseCalories;
+
+  const surplusOrDeficit = remainingCalories < 0 ?  "Surplus" : "Deficit";
+  
+  output.innerHTML = `
+  <span class="${surplusOrDeficit.toLowerCase()}">${Math.abs(remainingCalories)} Calorie ${surplusOrDeficit}</span>
+  <hr>
+  <p>${budgetCalories} Calories Budgeted</p>
+  <p>${consumedCalories} Calories Consumed</p>
+  <p>${exerciseCalories} Calories Burned</p>`;
+
+  output.classList.remove('hide');
 }
+
+function clearForm(){
+
+  const inputContainers = Array.from(document.querySelectorAll(`.input-container`));
+  for(const container of inputContainers){
+    container.innerHTML = "";
+  }
+  budgetNumberInput.value = "";
+  output.innerText = "";
+  output.classList.add('hide');
+}
+
+addEntryButton.addEventListener('click', addEntry);
+calorieCounter.addEventListener('submit', calculateCalories);
+clearButton.addEventListener('click', clearForm);
+//addEntryButton.onclick = addEntry;
+//clearButton.onsubmit = clearForm;
+//calorieCounter.onclick = calculateCalories;
