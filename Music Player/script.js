@@ -144,6 +144,23 @@ const shuffle = () =>{
     setPlayButtonAccessibleText();
 };
 
+const deleteSong = (id) => {
+    if(userData?.currentSong?.id === id){
+        userData.currentSong = null;
+        userData.songCurrentTime = 0;
+        pauseSong();
+        setPlayerDisplay();
+    }
+    userData.songs = userData?.songs.filter((song) => song.id !== id);
+    renderSongs(userData?.songs);
+    highlightCurrentSong();
+    setPlayButtonAccessibleText();
+
+    if(userData?.songs.length === 0){
+        const resetButton = document.createElement('button');
+    }
+};
+
 const setPlayerDisplay = () => {
     const playingSong = document.getElementById('player-song-title');
     const songArtist = document.getElementById('player-song-artist');
@@ -174,7 +191,7 @@ const renderSongs = (array) => {
             <span class="playlist-song-artist">${song.artist}</span>
             <span class="playlist-song-duration">${song.duration}</span>
         </button>
-        <button class="playlist-song-delete" aria-label="Delete ${song.title}">
+        <button class="playlist-song-delete" aria-label="Delete ${song.title}" onclick="deleteSong(${song.id})">
             <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="8" cy="8" r="8" fill="#4d4d62"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.32587 5.18571C5.7107 4.90301 6.28333 4.94814 6.60485 
